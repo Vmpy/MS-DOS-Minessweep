@@ -100,6 +100,7 @@ void Reset(void)
 		for(y = 0;y < Y;y++)
 		{
 			Mine[x][y].Num = 0;
+			Mine[x][y].Mark = Close;
 		}
 	}
 }
