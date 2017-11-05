@@ -294,7 +294,7 @@ void Play(void)
 			case 'F':
 			{
 				//Flags没有被用完. 
-				if(CountFlagsNum() < 10 && Mine[Posx][Posy].Mark != Flags)
+				if(CountFlagsNum() < 10 || Mine[Posx][Posy].Mark == Flags)
 				{
 					if(Mine[Posx][Posy].Mark == Flags)
 					{
