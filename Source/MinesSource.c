@@ -49,6 +49,7 @@ int FindMineNum(int,int);
 int CountFlagsNum(void); 
 void Display(int,int);
 void Open_large_area(int,int);
+void Open_side_of_blank(void);
 bool IfWin(void);
 void End(bool);
 
@@ -68,6 +69,7 @@ int main(void)
 		case 'y':
 		{
 			Reset();
+			system("cls"); 
 			goto A;
 		}
 		case 'N':
@@ -275,6 +277,7 @@ void Play(void)
 						if(Mine[Posx][Posy].Num == 0)
 						{
 							Open_large_area(Posx,Posy);
+							Open_side_of_blank();
 						}
 					}
 					else
@@ -284,6 +287,7 @@ void Play(void)
 						{
 							//递归打开空区域 
 							Open_large_area(Posx,Posy);
+							Open_side_of_blank();
 						}
 					}
 				}
@@ -376,6 +380,55 @@ void Open_large_area(int x,int y)
 	{
 		Mine[x][y-1].Mark = Open;
 		Open_large_area(x,y+1);
+	}
+}
+
+/**
+*打开空白区域周围的数字区域. 
+*/
+void Open_side_of_blank(void)
+{
+	int x,y;
+	for(x = 0;x < X;x++)
+	{
+		for(y = 0;y < Y;y++)
+		{
+			if(Mine[x][y].Num == 0 && Mine[x][y].Mark == Open)
+			{
+				if(Mine[x+1][y].Num && x+1 < X && Mine[x+1][y].Mark == Close)
+				{
+					Mine[x+1][y].Mark = Open;
+				}
+				if(Mine[x][y+1].Num && y+1 < Y && Mine[x][y+1].Mark == Close)
+				{
+					Mine[x][y+1].Mark = Open;
+				}
+				if(Mine[x-1][y].Num && x-1 >= 0 && Mine[x-1][y].Mark == Close)
+				{
+					Mine[x-1][y].Mark = Open;
+				}
+				if(Mine[x][y-1].Num && y-1 >= 0 && Mine[x][y-1].Mark == Close)
+				{
+					Mine[x][y-1].Mark = Open;
+				}
+				if(Mine[x-1][y-1].Num && y-1 >= 0 && x-1 >= 0 && Mine[x-1][y-1].Mark == Close)
+				{
+					Mine[x-1][y-1].Mark = Open;
+				}
+				if(Mine[x+1][y+1].Num && y+1 < Y && x+1 < X && Mine[x+1][y+1].Mark == Close)
+				{
+					Mine[x+1][y+1].Mark = Open;
+				}
+				if(Mine[x-1][y+1].Num && y+1 < Y && x-1 >= 0 && Mine[x-1][y+1].Mark == Close)
+				{
+					Mine[x-1][y+1].Mark = Open;
+				}
+				if(Mine[x+1][y-1].Num && y-1 >= 0 && x+1 < X && Mine[x+1][y-1].Mark == Close)
+				{
+					Mine[x+1][y-1].Mark = Open;
+				}
+			}
+		}
 	}
 }
 
@@ -488,4 +541,5 @@ void End(bool Rel)
 	{
 		printf("\n\n抱歉您触雷了!用时:%.2lf(s)\n\n",(double)(clock()/1000.0));
 	}
+	return;
 }
