@@ -498,12 +498,15 @@ void EndDisplay(void)
 	{
 		for(x = 0;x < X;x++)
 		{
+			White;
 			if(Mine[x][y].Mark == Flags && Mine[x][y].Num == MINE)
 			{
+				REDPLUS;
 				printf(" R ");
 			}
 			else if(Mine[x][y].Num == MINE)
 			{
+				GREENPLUS;
 				printf(" %c ",MineIcon);
 			}
 			else
