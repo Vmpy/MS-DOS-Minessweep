@@ -385,6 +385,7 @@ void Open_large_area(int x,int y)
 void Display(int Posx,int Posy)
 {
 	int x,y;
+	printf("***********扫雷***********\n");
 	for(y = 0;y < Y;y++)
 	{
 		for(x = 0;x < X;x++)
