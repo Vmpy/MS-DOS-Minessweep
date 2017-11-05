@@ -65,6 +65,7 @@ int main(void)
 		case 'Y':
 		case 'y':
 		{
+			Reset();
 			goto A;
 		}
 		case 'N':
@@ -436,10 +437,10 @@ void End(bool Rel)
 {
 	if(Rel)
 	{
-		printf("\n\n恭喜您赢了!用时:%.2lf(s)\n\n",(double)(clock()/1000));
+		printf("\n\n恭喜您赢了!用时:%.2lf(s)\n\n",(double)(clock()/1000.0));
 	}
 	else
 	{
-		printf("\n\n抱歉您触雷了!用时:%.2lf(s)\n\n",(double)(clock()/1000));
+		printf("\n\n抱歉您触雷了!用时:%.2lf(s)\n\n",(double)(clock()/1000.0));
 	}
 }
