@@ -48,6 +48,7 @@ bool Not_stepping_on_the_mine(void);
 int FindMineNum(int,int);
 int CountFlagsNum(void); 
 void Display(int,int);
+void EndDisplay(void);
 void Open_large_area(int,int);
 void Open_side_of_blank(void);
 bool IfWin(void);
@@ -59,6 +60,8 @@ int main(void)
 	srand((unsigned)(time(NULL)));
 	A:
 	Play();
+	system("cls");
+	EndDisplay();
 	getchar();
 	printf("再来一次?(Yes[Y]/No[N]\n");
 	Ch:
@@ -480,6 +483,38 @@ void Display(int Posx,int Posy)
 	}
 	printf("\n");
 	printf("扫雷剩余:%d",(10 - CountFlagsNum()));
+}
+
+/**
+*游戏结束后的Mine结构显示.
+*/
+void EndDisplay(void)
+{
+	int x,y;
+	
+	printf("***********扫雷***********\n");
+	
+	for(y = 0;y < Y;y++)
+	{
+		for(x = 0;x < X;x++)
+		{
+			if(Mine[x][y].Mark == Flags && Mine[x][y].Num == MINE)
+			{
+				printf(" R ");
+			}
+			else if(Mine[x][y].Num == MINE)
+			{
+				printf(" %c ",MineIcon);
+			}
+			else
+			{
+				printf(" %d ",Mine[x][y].Num);
+			}
+		}
+		printf("\n");
+	}
+	
+	printf("\n");
 }
 
 /**
