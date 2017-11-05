@@ -81,6 +81,9 @@ int main(void)
 	return 0;
 }
 
+/**
+*重置Mine结构. 
+*/
 void Reset(void)
 {
 	int x,y;
@@ -93,6 +96,11 @@ void Reset(void)
 	}
 }
 
+/**
+*在玩家打开一块区域时，初始化Mine结构.
+*@param Posx: 玩家点击方块的横坐标数值.
+*@param Posy: 玩家点击方块的纵坐标数值.
+*/
 void Init(int Posx,int Posy)
 {
 	int x,y,tmp;
@@ -136,6 +144,11 @@ void Init(int Posx,int Posy)
 	}
 }
 
+/**
+*寻找目标方块的九宫格区域内存在地雷的数目.
+*@param x:目标方块的横坐标.
+*@param y:目标方块的纵坐标. 
+*/
 int FindMineNum(int x,int y)
 {
 	int Count = 0;
@@ -143,7 +156,7 @@ int FindMineNum(int x,int y)
 	{
 		if(Mine[x-1][y-1].Num == MINE)
 		{
-			Count++; 
+			Count++;
 		}
 	}
 	if(x-1 >= 0)
@@ -198,6 +211,9 @@ int FindMineNum(int x,int y)
 	return Count;
 }
 
+/**
+*玩家操作的主函数.
+*/
 void Play(void)
 {
 	int Posx,Posy;
@@ -206,6 +222,7 @@ void Play(void)
 	Posx = Posy = 0;
 	bool bWin = false;
 	
+	//是否触雷. 
 	while(Not_stepping_on_the_mine())
 	{
 		system("cls");
@@ -241,6 +258,7 @@ void Play(void)
 				Posx %= X;
 				break;
 			}
+			/*Open操作*/
 			case 'o':
 			case 'O':
 			{
@@ -262,15 +280,18 @@ void Play(void)
 						Mine[Posx][Posy].Mark = Open;
 						if(Mine[Posx][Posy].Num == 0)
 						{
+							//递归打开空区域 
 							Open_large_area(Posx,Posy);
 						}
 					}
 				}
 				break;
 			}
+			/*Flags操作*/
 			case 'f':
 			case 'F':
 			{
+				//Flags没有被用完. 
 				if(CountFlagsNum() < 10 && Mine[Posx][Posy].Mark != Flags)
 				{
 					if(Mine[Posx][Posy].Mark == Flags)
@@ -289,6 +310,7 @@ void Play(void)
 				break;
 			}
 		}
+		//地雷是否全部清除. 
 		if(IfWin())
 		{
 			bWin = true;
@@ -296,13 +318,18 @@ void Play(void)
 		}
 	}
 	
+	//额外显示战场. 
 	system("cls");
 	Display(Posx,Posy);
 	
+	//结束. 
 	End(bWin);
 	return;
 }
 
+/**
+*统计Mine结构中的Flags数目. 
+*/
 int CountFlagsNum(void)
 {
 	int Count = 0;
@@ -321,7 +348,9 @@ int CountFlagsNum(void)
 }
 
 /**
-*递归打开空白区域. 
+*递归打开目标区域周围空白区域.
+*@param x:目标区域横坐标.
+*@param y:目标区域纵坐标.
 */
 void Open_large_area(int x,int y)
 {
@@ -348,6 +377,9 @@ void Open_large_area(int x,int y)
 	}
 }
 
+/**
+*显示Mine结构的函数. 
+*/
 void Display(int Posx,int Posy)
 {
 	int x,y;
@@ -394,6 +426,9 @@ void Display(int Posx,int Posy)
 	printf("扫雷剩余:%d",(10 - CountFlagsNum()));
 }
 
+/**
+*是否触雷. 
+*/
 bool Not_stepping_on_the_mine(void)
 {
 	int x,y;
@@ -410,6 +445,9 @@ bool Not_stepping_on_the_mine(void)
 	return 1;
 }
 
+/**
+*地雷是否清除完毕. 
+*/
 bool IfWin(void)
 {
 	int x,y;
@@ -433,6 +471,10 @@ bool IfWin(void)
 	return true;
 } 
 
+/**
+*游戏结束.
+*@param Rel:是否胜利的条件.胜利(true)/失败(false). 
+*/
 void End(bool Rel)
 {
 	if(Rel)
