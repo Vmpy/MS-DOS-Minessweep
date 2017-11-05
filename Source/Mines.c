@@ -18,6 +18,7 @@
 #define White SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE|FOREGROUND_INTENSITY)
 #define Other SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_RED&FOREGROUND_GREEN|FOREGROUND_BLUE|FOREGROUND_INTENSITY)
 
+/*在Mine结构中表示地雷的符号常量*/
 #define MINE -1
 
 /*Mine[MINE][MINE].Mark*/
@@ -30,6 +31,7 @@
 #define MineIcon '@'
 #define FlagsIcon '^'
 
+/*Mine结构最大值*/
 #define X 9
 #define Y 9
 
