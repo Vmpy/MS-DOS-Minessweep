@@ -60,6 +60,7 @@ int main(void)
 	srand((unsigned)(time(NULL)));
 	A:
 	Play();
+	Sleep(2500);
 	system("cls");
 	EndDisplay();
 	getchar();
